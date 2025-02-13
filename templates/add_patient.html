@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}新增患者{% endblock %}
+{% block content %}
+<h2>新增患者</h2>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <div class="mb-3">
+        {{ form.name.label(class="form-label") }}
+        {{ form.name(class="form-control", placeholder="请输入患者姓名") }}
+        {% if form.name.errors %}
+            <div class="text-danger">
+                {% for error in form.name.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    <div class="mb-3">
+        {{ form.gender.label(class="form-label") }}
+        {{ form.gender(class="form-control", placeholder="例如：男/女") }}
+    </div>
+    <div class="mb-3">
+        {{ form.age.label(class="form-label") }}
+        {{ form.age(class="form-control", placeholder="请输入年龄") }}
+    </div>
+    <div class="mb-3">
+        {{ form.contact.label(class="form-label") }}
+        {{ form.contact(class="form-control", placeholder="请输入联系方式(手机号)") }}
+    </div>
+    <div class="mb-3">
+        {{ form.initial_diagnosis_date.label(class="form-label") }}
+        {{ form.initial_diagnosis_date(class="form-control", placeholder="YYYY-MM-DD") }}
+    </div>
+    <div class="mb-3">
+        {{ form.nodule_size.label(class="form-label") }}
+        {{ form.nodule_size(class="form-control", placeholder="结节大小") }}
+    </div>
+    <div class="mb-3">
+        {{ form.nodule_location.label(class="form-label") }}
+        {{ form.nodule_location(class="form-control", placeholder="结节位置") }}
+    </div>
+    <button type="submit" class="btn btn-primary">{{ form.submit.label.text }}</button>
+    <a href="{{ url_for('index') }}" class="btn btn-secondary">返回</a>
+</form>
+{% endblock %}

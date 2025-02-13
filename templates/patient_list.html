@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}患者列表 - 肺结节随访系统{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>患者列表</h2>
+    <a href="{{ url_for('add_patient') }}" class="btn btn-success">新增患者</a>
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>患者姓名</th>
+            <th>性别</th>
+            <th>年龄</th>
+            <th>联系方式</th>
+            <th>初诊日期</th>
+            <th>结节大小(mm)</th>
+            <th>结节位置</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for patient in patients %}
+        <tr>
+            <td>{{ patient.name }}</td>
+            <td>{{ patient.gender }}</td>
+            <td>{{ patient.age }}</td>
+            <td>{{ patient.contact }}</td>
+            <td>{{ patient.initial_diagnosis_date.strftime('%Y-%m-%d') if patient.initial_diagnosis_date else '' }}</td>
+            <td>{{ patient.nodule_size }}</td>
+            <td>{{ patient.nodule_location }}</td>
+            <td>
+                <a href="{{ url_for('patient_detail', id=patient.id) }}" class="btn btn-primary btn-sm">详情</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

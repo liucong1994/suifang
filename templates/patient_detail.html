@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}患者详情 - {{ patient.name }}{% endblock %}
+{% block content %}
+<div class="mb-3">
+    <h2>患者详情</h2>
+    <p><strong>姓名：</strong> {{ patient.name }}</p>
+    <p><strong>性别：</strong> {{ patient.gender }}</p>
+    <p><strong>年龄：</strong> {{ patient.age }}</p>
+    <p><strong>联系方式：</strong> {{ patient.contact }}</p>
+    <p><strong>初诊日期：</strong> {{ patient.initial_diagnosis_date.strftime('%Y-%m-%d') if patient.initial_diagnosis_date else '' }}</p>
+    <p><strong>结节大小(mm)：</strong> {{ patient.nodule_size }}</p>
+    <p><strong>结节位置：</strong> {{ patient.nodule_location }}</p>
+</div>
+
+<hr>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>随访记录</h3>
+    <a href="{{ url_for('add_followup', patient_id=patient.id) }}" class="btn btn-success btn-sm">添加随访记录</a>
+</div>
+
+{% if patient.followups %}
+    <ul class="list-group">
+        {% for followup in patient.followups %}
+        <li class="list-group-item">
+            <p><strong>随访日期：</strong> {{ followup.followup_date.strftime('%Y-%m-%d') }}</p>
+            <p><strong>检查类型：</strong> {{ followup.checkup_type }}</p>
+            <p><strong>结节大小(mm)：</strong> {{ followup.nodule_size }}</p>
+            <p><strong>检查发现：</strong> {{ followup.findings }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>暂无随访记录。</p>
+{% endif %}
+{% endblock %}
